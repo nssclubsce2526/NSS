@@ -596,8 +596,8 @@ let links = JSON.parse(sGet("nss_links") || "null") || seedLinks;
 let gallery = [];
 function saveLinks(){ sSet("nss_links", JSON.stringify(links)); }
 /* Cloudinary: replace these two values with your Cloudinary details before deploying. */
-const CLOUDINARY_CLOUD_NAME = "YOUR_CLOUD_NAME";
-const CLOUDINARY_UPLOAD_PRESET = "YOUR_UNSIGNED_UPLOAD_PRESET";
+const CLOUDINARY_CLOUD_NAME = "nbqtcudr";
+const CLOUDINARY_UPLOAD_PRESET = "nss-gallery";
 const CLOUDINARY_GALLERY_TAG = "nss-gallery";
 function cloudinaryReady(){
   return !CLOUDINARY_CLOUD_NAME.startsWith("YOUR_") && !CLOUDINARY_UPLOAD_PRESET.startsWith("YOUR_");

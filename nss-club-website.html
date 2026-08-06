@@ -188,8 +188,8 @@ a.link-row:hover{border-color:var(--navy);transform:translateX(4px);box-shadow:v
 body.admin .del{display:inline-flex;align-items:center;justify-content:center}
 
 /* GALLERY */
-.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.gcard{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:var(--paper-2);
+.gal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.gcard{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;background:var(--paper-2);
   border:1px solid var(--line)}
 .gcard img{width:100%;height:100%;object-fit:cover}
 .gcard .cap{position:absolute;left:0;right:0;bottom:0;padding:20px 12px 10px;color:#fff;font-size:.82rem;
@@ -271,6 +271,7 @@ body.admin .add-btn{display:inline-flex}
   .exec-grid{grid-template-columns:1fr}
   .pillars{grid-template-columns:1fr}
   .hero .motto{font-size:1.15rem}
+  .gal-grid{grid-template-columns:1fr;gap:16px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -522,7 +523,7 @@ body.admin .add-btn{display:inline-flex}
 <!-- ADMIN BAR -->
 <div class="adminbar">
   <b>● Admin mode</b>
-  <span style="font-size:.82rem">You can now add / remove links &amp; photos.</span>
+  <span style="font-size:.82rem">You can add links and upload photos. Remove Cloudinary photos from its Media Library.</span>
   <button class="btn btn-white" id="logoutBtn">Log out</button>
 </div>
 
@@ -592,9 +593,31 @@ const seedLinks = [
   {id:1, title:"Volunteer Registration (sample — edit or delete)", url:"https://forms.gle/", type:"Form"}
 ];
 let links = JSON.parse(sGet("nss_links") || "null") || seedLinks;
-let gallery = JSON.parse(sGet("nss_gallery") || "null") || [];
+let gallery = [];
 function saveLinks(){ sSet("nss_links", JSON.stringify(links)); }
-function saveGallery(){ sSet("nss_gallery", JSON.stringify(gallery)); }
+/* Cloudinary: replace these two values with your Cloudinary details before deploying. */
+const CLOUDINARY_CLOUD_NAME = "YOUR_CLOUD_NAME";
+const CLOUDINARY_UPLOAD_PRESET = "YOUR_UNSIGNED_UPLOAD_PRESET";
+const CLOUDINARY_GALLERY_TAG = "nss-gallery";
+function cloudinaryReady(){
+  return !CLOUDINARY_CLOUD_NAME.startsWith("YOUR_") && !CLOUDINARY_UPLOAD_PRESET.startsWith("YOUR_");
+}
+function cloudinaryImage(asset){
+  if(asset.secure_url) return asset.secure_url;
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/v${asset.version}/${asset.public_id}.${asset.format}`;
+}
+async function loadGallery(){
+  if(!cloudinaryReady()) return;
+  const response=await fetch(`https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_GALLERY_TAG}.json`,{cache:"no-store"});
+  if(!response.ok) throw new Error("Cloudinary gallery list is not public yet.");
+  const data=await response.json();
+  gallery=(data.resources||[]).map(asset=>({
+    id:asset.asset_id||asset.public_id,
+    src:cloudinaryImage(asset),
+    cap:asset.context?.custom?.caption||""
+  }));
+  renderGallery();
+}
 
 /* executive body */
 const exec = [
@@ -683,15 +706,21 @@ function renderLinks(){
 }
 function renderGallery(){
   const wrap=document.getElementById("galWrap");
+  if(!cloudinaryReady()){
+    wrap.innerHTML=`<div class="empty"><b>Gallery setup needed</b>Add your Cloudinary cloud name and unsigned upload preset in this file.</div>`;
+    return;
+  }
   if(!gallery.length){ wrap.innerHTML=`<div class="empty"><b>No photos yet</b>Log in as admin to add pictures from your device or by URL.</div>`; return; }
   wrap.innerHTML = `<div class="gal-grid">`+gallery.map(g=>`
     <figure class="gcard">
       <img src="${esc(g.src)}" alt="${esc(g.cap)}" loading="lazy">
       ${g.cap?`<figcaption class="cap">${esc(g.cap)}</figcaption>`:""}
-      <button class="del" title="Remove" data-del-photo="${g.id}">🗑</button>
     </figure>`).join("")+`</div>`;
 }
 renderLinks(); renderGallery();
+loadGallery().catch(e=>{
+  document.getElementById("galWrap").innerHTML=`<div class="empty"><b>Cloudinary gallery is unavailable</b>${esc(e.message)}</div>`;
+});
 document.getElementById("yr").textContent=new Date().getFullYear();
 
 /* ============ MODALS ============ */
@@ -740,24 +769,27 @@ document.getElementById("pSave").onclick=()=>{
   const file=document.getElementById("pFile").files[0];
   const err=document.getElementById("pErr");
   err.textContent="";
-  const commit=(src)=>{ gallery.push({id:Date.now(),src,cap}); 
-    try{ saveGallery(); }catch(e){ err.textContent="Image too large to save in browser — try a URL instead."; }
-    renderGallery(); 
-    document.getElementById("pCap").value="";document.getElementById("pUrl").value="";document.getElementById("pFile").value="";
-    close("photoModal"); };
-  if(file){
-    if(file.size>2.2*1024*1024){err.textContent="Please use an image under ~2 MB (or paste a URL).";return;}
-    const r=new FileReader(); r.onload=()=>commit(r.result); r.readAsDataURL(file);
-  } else if(url){ commit(url); }
-  else { err.textContent="Upload a file or paste an image URL."; }
+  if(!cloudinaryReady()){err.textContent="Add your Cloudinary cloud name and upload preset first.";return;}
+  if(!file&&!url){err.textContent="Upload a file or paste an image URL.";return;}
+  const form=new FormData();
+  form.append("file",file||url);
+  form.append("upload_preset",CLOUDINARY_UPLOAD_PRESET);
+  form.append("tags",CLOUDINARY_GALLERY_TAG);
+  if(cap) form.append("context",`caption=${cap.replace(/[|=]/g," ")}`);
+  fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,{method:"POST",body:form})
+    .then(async response=>{
+      const data=await response.json();
+      if(!response.ok) throw new Error(data.error?.message||"Cloudinary could not upload the image.");
+      gallery.unshift({id:data.asset_id,src:data.secure_url,cap}); renderGallery();
+      document.getElementById("pCap").value="";document.getElementById("pUrl").value="";document.getElementById("pFile").value="";
+      close("photoModal");
+    }).catch(e=>err.textContent=e.message);
 };
 
 /* delete (event delegation) */
 document.body.addEventListener("click",e=>{
   const dl=e.target.closest("[data-del-link]");
   if(dl){ links=links.filter(x=>String(x.id)!==dl.dataset.delLink); saveLinks(); renderLinks(); }
-  const dp=e.target.closest("[data-del-photo]");
-  if(dp){ gallery=gallery.filter(x=>String(x.id)!==dp.dataset.delPhoto); saveGallery(); renderGallery(); }
 });
 
 /* ============ NAV / MOBILE ============ */

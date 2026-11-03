@@ -144,6 +144,8 @@ section{padding:78px 0}
   justify-content:center;font-family:"Anton";font-size:.95rem;color:#fff}
 .mem b{font-size:.9rem;font-weight:700;line-height:1.15}
 .mem span{font-size:.72rem;color:var(--muted)}
+.session-label{font-family:"Space Mono";font-size:.85rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--white);background:var(--navy);display:inline-block;padding:8px 14px;border-radius:6px;margin-top:44px}
 .subhead{font-family:"Space Mono";font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
   color:var(--navy);font-weight:700;margin:34px 0 6px}
 
@@ -250,6 +252,29 @@ body.admin .add-btn{display:inline-flex}
 .reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
+/* event photo albums */
+.albums{background:var(--paper)}
+.album{margin-top:34px}
+.album-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-bottom:2px solid var(--line);padding-bottom:10px;margin-bottom:16px}
+.album-head h3{font-family:"Anton";font-size:1.5rem;letter-spacing:.02em;text-transform:uppercase;margin:0;color:var(--ink)}
+.album-head .meta{font-family:"Space Mono";font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.album-head p{flex-basis:100%;margin:4px 0 0;color:var(--muted);font-size:.9rem}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.album-grid button{all:unset;cursor:zoom-in;display:block;border-radius:12px;overflow:hidden;aspect-ratio:4/3;
+  background:var(--paper-2);border:1px solid var(--line)}
+.album-grid button:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+.album-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.album-grid button:hover img{transform:scale(1.05)}
+.ev-lb{position:fixed;inset:0;z-index:200;background:rgba(8,23,51,.94);display:none;align-items:center;justify-content:center;padding:16px}
+.ev-lb.open{display:flex}
+.ev-lb img{max-width:100%;max-height:86vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.ev-lb .cap{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#c9d4ef;font-family:"Space Mono";font-size:.75rem;letter-spacing:.1em}
+.ev-lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:50%;
+  width:46px;height:46px;font-size:1.4rem;cursor:pointer}
+.ev-lb button:hover{background:var(--saffron)}
+.ev-lb .x{top:14px;right:14px}.ev-lb .pv{left:14px;top:50%;transform:translateY(-50%)}.ev-lb .nx{right:14px;top:50%;transform:translateY(-50%)}
+@media(max-width:640px){.album-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 @media(max-width:920px){
   .hero-grid{grid-template-columns:1fr;padding:44px 0 54px}
   .hero-art{min-height:240px;order:-1}
@@ -296,6 +321,7 @@ body.admin .add-btn{display:inline-flex}
       <a href="#about">About</a>
       <a href="#team">Team</a>
       <a href="#events">Activities</a>
+      <a href="#event-photos">Events</a>
       <a href="#notices">Notices</a>
       <a href="#gallery">Gallery</a>
       <a href="downloads.html">Downloads</a>
@@ -412,9 +438,27 @@ body.admin .add-btn{display:inline-flex}
   <circle cx="20" cy="20" r="18" fill="none" stroke="#C1272D" stroke-width="2"/>
   <g stroke="#C1272D" stroke-width="1.6" stroke-linecap="round"><line x1="20" y1="20" x2="35.0" y2="20.0"/><line x1="20" y1="20" x2="30.6" y2="30.6"/><line x1="20" y1="20" x2="20.0" y2="35.0"/><line x1="20" y1="20" x2="9.4" y2="30.6"/><line x1="20" y1="20" x2="5.0" y2="20.0"/><line x1="20" y1="20" x2="9.4" y2="9.4"/><line x1="20" y1="20" x2="20.0" y2="5.0"/><line x1="20" y1="20" x2="30.6" y2="9.4"/></g><circle cx="20" cy="20" r="3" fill="#C1272D"/></svg><span class="eyebrow">Who runs the club</span></div>
         <h2>The Team</h2>
-        <p>Guided by faculty advisors and led by an elected executive body of student volunteers for the 2025–26 session.</p>
+        <p>Guided by faculty advisors and led by an elected executive body of student volunteers — current 2026–27 session first, followed by the previous 2025–26 team.</p>
       </div>
     </div>
+
+    <div class="session-label">Session 2026–27 · Current</div>
+
+    <div class="subhead">Faculty Members</div>
+    <div class="adv-grid" style="margin-top:14px">
+      <div class="adv reveal"><div class="avatar" style="background:var(--navy)">AA</div><h4>Ajay Anand Sir</h4><div class="role">Incharge</div></div>
+      <div class="adv reveal"><div class="avatar" style="background:var(--navy-soft)">SS</div><h4>Sunil Kumar Sahu Sir</h4><div class="role faint">Faculty Member</div></div>
+      <div class="adv reveal"><div class="avatar" style="background:var(--navy-soft)">OD</div><h4>Om Prakash Dubey Sir</h4><div class="role faint">Faculty Member</div></div>
+      <div class="adv reveal"><div class="avatar" style="background:var(--navy-soft)">NS</div><h4>Naveen Sir</h4><div class="role faint">Faculty Member</div></div>
+    </div>
+
+    <div class="subhead">Executive Body</div>
+    <div class="exec-grid" id="execGrid27"></div>
+
+    <div class="subhead">Co-ordinators &amp; Members</div>
+    <div class="mem-grid" id="memGrid27"></div>
+
+    <div class="session-label">Session 2025–26 · Previous</div>
 
     <div class="subhead">Faculty Advisors</div>
     <div class="adv-grid" style="margin-top:14px">
@@ -449,6 +493,27 @@ body.admin .add-btn{display:inline-flex}
     <div class="ev-grid" id="evGrid"></div>
   </div>
 </section>
+
+<!-- EVENT PHOTOS -->
+<section class="albums" id="event-photos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Moments from the field</span>
+        <h2>Events</h2>
+        <p>Photos from NSS events. Tap any photo to view it larger.</p>
+      </div>
+    </div>
+    <div id="albumList"></div>
+  </div>
+</section>
+<div class="ev-lb" id="evLb" role="dialog" aria-modal="true" aria-label="Event photo">
+  <button class="x" id="evLbX" aria-label="Close">&times;</button>
+  <button class="pv" id="evLbP" aria-label="Previous photo">&#8249;</button>
+  <img id="evLbImg" alt="">
+  <button class="nx" id="evLbN" aria-label="Next photo">&#8250;</button>
+  <div class="cap" id="evLbCap"></div>
+</div>
 
 <!-- NOTICES / LINKS -->
 <section class="links" id="notices">
@@ -503,6 +568,7 @@ body.admin .add-btn{display:inline-flex}
         <a href="#about">About NSS</a>
         <a href="#team">The Team</a>
         <a href="#events">Activities</a>
+        <a href="#event-photos">Event Photos</a>
         <a href="#notices">Notices &amp; Forms</a>
         <a href="#gallery">Gallery</a>
       </div>
@@ -620,7 +686,27 @@ async function loadGallery(){
   renderGallery();
 }
 
-/* executive body */
+/* executive body — 2026-27 (current) */
+const exec27 = [
+  ["Sunny Kumar","President","var(--red)"],
+  ["Sujal Raj","Vice-President","var(--navy)"],
+  ["Alok Ranjan","Secretary","var(--navy)"],
+  ["Saurabh Sagar","Vice-Secretary","var(--navy)"],
+  ["Ashim Akram Ansari","Treasurer","var(--navy)"],
+  ["Pritam Kumar","Vice-Treasurer","var(--navy)"],
+  ["Priyanshu Ranjan","Head of Co-ordinators","var(--navy)"],
+  ["Malvika Kumari","Head of Co-ordinators","var(--navy)"],
+];
+const members27 = [
+  ["Shibu Kumar","Media Member"],["Priyashi Tripathi","Media Member"],
+  ["Raja Das","Parade Co-ordinator"],["Prabhakar Kumar","Parade Co-ordinator"],["Subhi Upadhyay","Parade Co-ordinator"],
+  ["Shivam Kumar","Yoga Co-ordinator"],["Anurag Pandey","Yoga Co-ordinator"],["Aparna Anand","Yoga Co-ordinator / Cultural"],
+  ["Sumit Kumar","Pahal Co-ordinator"],["Ankit Kumar Tiwari","Pahal Co-ordinator"],["Dipika Kumari","Pahal Co-ordinator"],
+  ["Abhishek Kumar","Member"],["Rajbeer Raj","Member"],["Divya Kumari","Member"],["Sneha Kumari","Member"],
+  ["Sudhanshu Kumar","Member"],["Ritika Singh","Member"],["Sakti Vikram Singh","Member"],["Prince Kumar","Tech Member"],
+];
+
+/* executive body — 2025-26 (previous) */
 const exec = [
   ["Nirbhay Kumar","President","var(--red)"],
   ["Archna Kumari","Vice-President","var(--navy)"],
@@ -669,17 +755,91 @@ function initials(name){
 }
 function esc(s){return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-document.getElementById("execGrid").innerHTML = exec.map(([n,r,c])=>`
+const renderExec = list => list.map(([n,r,c])=>`
   <div class="adv reveal">
     <div class="avatar" style="background:${c}">${initials(n)}</div>
     <h4>${n}</h4><div class="role">${r}</div>
   </div>`).join("");
-
-document.getElementById("memGrid").innerHTML = members.map(([n,r],i)=>`
+const renderMembers = list => list.map(([n,r],i)=>`
   <div class="mem reveal">
     <div class="av-sm" style="background:${memColors[i%memColors.length]}">${initials(n)}</div>
     <div><b>${n}</b><br><span>${r}</span></div>
   </div>`).join("");
+document.getElementById("execGrid27").innerHTML = renderExec(exec27);
+document.getElementById("memGrid27").innerHTML = renderMembers(members27);
+document.getElementById("execGrid").innerHTML = renderExec(exec);
+document.getElementById("memGrid").innerHTML = renderMembers(members);
+
+/* ============ EVENT PHOTO ALBUMS ============
+   To add an event: put its photos in assets/<folder>/ and add an entry below.
+   File names are case-sensitive on GitHub Pages. */
+const eventAlbums = [
+  {
+    title: "Parade",
+    date: "",            // e.g. "26 Jan 2026"
+    desc: "NSS volunteers on parade.",
+    folder: "assets/prade",
+    photos: ["Prade1.jpeg","Prade2.jpeg","Prade3.jpeg","Prade4.jpeg"]
+  },
+  {
+    title: "Pahal Classes",
+    date: "",
+    desc: "Volunteers teaching underprivileged school children.",
+    folder: "assets/pahal",
+    photos: Array.from({length:14},(_,i)=>`Pahal${i+1}.jpeg`)   // Pahal1.jpeg … Pahal14.jpeg
+  },
+  {
+    title: "World Yoga Day",
+    date: "",
+    desc: "Guided yoga session for students, faculty and staff.",
+    folder: "assets/Yoga",   // folder name has a capital Y
+    photos: Array.from({length:12},(_,i)=>`Yoga${i+1}.jpeg`)    // Yoga1.jpeg … Yoga12.jpeg
+  },
+  {
+    title: "Har Ghar Tiranga",
+    date: "",
+    desc: "Volunteers celebrating the national flag campaign.",
+    folder: "assets/Har Ghar Tiranga",
+    photos: Array.from({length:14},(_,i)=>`Tiranga${i+1}.jpeg`) // Tiranga1.jpeg … Tiranga14.jpeg
+  },
+  {
+    title: "Swachh Bharat Mission",
+    date: "",
+    desc: "Cleanliness drive by NSS volunteers.",
+    folder: "assets/SBM",
+    photos: Array.from({length:3},(_,i)=>`SBM${i+1}.jpeg`)      // SBM1.jpeg … SBM3.jpeg
+  },
+  // { title:"Tree Plantation", date:"", desc:"", folder:"assets/plantation", photos:["1.jpeg","2.jpeg"] },
+];
+(function(){
+  const list=document.getElementById("albumList");
+  list.innerHTML = eventAlbums.map((a,ai)=>`
+    <div class="album reveal">
+      <div class="album-head">
+        <h3>${esc(a.title)}</h3>
+        <span class="meta">${a.date?esc(a.date)+" · ":""}${a.photos.length} photo${a.photos.length===1?"":"s"}</span>
+        ${a.desc?`<p>${esc(a.desc)}</p>`:""}
+      </div>
+      <div class="album-grid">
+        ${a.photos.map((f,pi)=>`<button data-a="${ai}" data-p="${pi}" aria-label="Open ${esc(a.title)} photo ${pi+1}">
+          <img src="${encodeURI(a.folder+"/"+f)}" alt="${esc(a.title)} photo ${pi+1}" loading="lazy"></button>`).join("")}
+      </div>
+    </div>`).join("");
+  const lb=document.getElementById("evLb"), img=document.getElementById("evLbImg"), cap=document.getElementById("evLbCap");
+  let A=0,P=0;
+  function show(){ const a=eventAlbums[A]; img.src=encodeURI(a.folder+"/"+a.photos[P]); img.alt=`${a.title} photo ${P+1}`;
+    cap.textContent=`${a.title.toUpperCase()} · ${P+1} / ${a.photos.length}`; }
+  function step(d){ const n=eventAlbums[A].photos.length; P=(P+d+n)%n; show(); }
+  function close(){ lb.classList.remove("open"); document.body.style.overflow=""; }
+  list.addEventListener("click",e=>{ const b=e.target.closest("button[data-a]"); if(!b) return;
+    A=+b.dataset.a; P=+b.dataset.p; show(); lb.classList.add("open"); document.body.style.overflow="hidden"; });
+  document.getElementById("evLbX").onclick=close;
+  document.getElementById("evLbP").onclick=()=>step(-1);
+  document.getElementById("evLbN").onclick=()=>step(1);
+  lb.addEventListener("click",e=>{ if(e.target===lb) close(); });
+  document.addEventListener("keydown",e=>{ if(!lb.classList.contains("open")) return;
+    if(e.key==="Escape") close(); else if(e.key==="ArrowLeft") step(-1); else if(e.key==="ArrowRight") step(1); });
+})();
 
 document.getElementById("evGrid").innerHTML = events.map(([t,tag,c,d],i)=>`
   <article class="ev reveal">

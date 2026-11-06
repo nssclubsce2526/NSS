@@ -804,7 +804,7 @@ document.getElementById("memGrid27").innerHTML = renderMembers(members27);
 function attachMemberPhotos(gridId, people){
   document.getElementById(gridId).querySelectorAll(".adv, .mem").forEach((card,i)=>{
     const name=people[i][0], avatar=card.querySelector(".avatar, .av-sm"), img=document.createElement("img");
-    img.src="assets/members/"+encodeURIComponent(name.trim().split(/\s+/)[0])+".jpeg";
+    img.src="assets/members/"+encodeURIComponent(name.trim().split(/\s+/)[0].toLowerCase())+".jpeg";
     img.alt=name;
     img.onerror=()=>avatar.textContent=initials(name);
     avatar.textContent="";

@@ -175,6 +175,26 @@ section{padding:78px 0}
 .mem .av-sm img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 .mem b{font-size:.9rem;font-weight:700;line-height:1.15}
 .mem span{font-size:.72rem;color:var(--muted)}
+.spotlight{margin-top:28px}
+.spotlight-main{display:grid;grid-template-columns:minmax(220px,.6fr) 1.4fr;gap:32px;align-items:center;
+  background:var(--white);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.spotlight-main img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:16px}
+.spotlight-kicker{font-family:"Space Mono";font-size:.72rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--green);margin:0 0 10px}
+.spotlight-main h3{font-family:"Anton";font-size:clamp(2rem,4vw,3rem);letter-spacing:.02em;color:var(--ink)}
+.spotlight-main .role{font-family:"Space Mono";font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);margin:8px 0 18px}
+.spotlight-copy{color:var(--muted);margin:0;max-width:65ch}
+.spotlight-contact{display:inline-flex;margin-top:20px;padding:8px 12px;border-radius:8px;background:var(--paper);
+  color:var(--navy);font-size:.88rem;font-weight:700}
+.spotlight-mini{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+.spotlight-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px}
+.spotlight-card h3{font-size:1.2rem;margin:0}
+.spotlight-card p{color:var(--muted);font-size:.92rem;margin:10px 0 18px}
+.spotlight-person{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.spotlight-person img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.spotlight-person b{display:block;font-size:.92rem}
+.spotlight-person span{font-size:.78rem;color:var(--muted)}
 .session-label{font-family:"Space Mono";font-size:.85rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:var(--white);background:var(--navy);display:inline-block;padding:8px 14px;border-radius:6px;margin-top:44px}
 .subhead{font-family:"Space Mono";font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
@@ -328,6 +348,9 @@ body.admin .add-btn{display:inline-flex}
   .pillars{grid-template-columns:1fr}
   .hero .motto{font-size:1.15rem}
   .gal-grid{grid-template-columns:1fr;gap:16px}
+  .spotlight-main{grid-template-columns:1fr;padding:20px;gap:22px}
+  .spotlight-main img{max-width:260px;margin-inline:auto}
+  .spotlight-mini{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -485,6 +508,38 @@ body.admin .add-btn{display:inline-flex}
 
     <div class="subhead">Executive Body</div>
     <div class="exec-grid" id="execGrid27"></div>
+
+    <div class="spotlight">
+      <div class="subhead">Leadership Spotlight</div>
+      <article class="spotlight-main reveal">
+        <img src="assets/members/alok.jpeg" alt="Alok Ranjan, Secretary of NSS Club">
+        <div>
+          <p class="spotlight-kicker">Secretary · 2026–27</p>
+          <h3>Alok Ranjan</h3>
+          <div class="role">NSS Club Secretary</div>
+          <p class="spotlight-copy">Alok coordinates club communication, documentation and day-to-day planning for the NSS team. As Secretary, he helps volunteers stay connected and supports the smooth organisation of service activities and campus events.</p>
+          <span class="spotlight-contact">Contact number: +91 87974 82851</span>
+        </div>
+      </article>
+      <div class="spotlight-mini">
+        <article class="spotlight-card reveal">
+          <h3>Coordination Team</h3>
+          <p>Malvika supports the coordination of volunteer teams and activities, helping the club keep communication and event planning organised.</p>
+          <div class="spotlight-person">
+            <img src="assets/members/malvika.jpeg" alt="Malvika Kumari, Head of Co-ordinators">
+            <div><b>Malvika Kumari</b><span>Head of Co-ordinators</span><br><span>Contact number: +91 90601 58577</span></div>
+          </div>
+        </article>
+        <article class="spotlight-card reveal">
+          <h3>Vice-President</h3>
+          <p>Sujal supports club leadership, planning and volunteer coordination to help NSS activities run smoothly across the session.</p>
+          <div class="spotlight-person">
+            <img src="assets/members/sujal.jpeg" alt="Sujal Raj, Vice-President">
+            <div><b>Sujal Raj</b><span>Vice-President</span><br><span>Contact number: +91 92796 89987</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
 
     <div class="subhead">Co-ordinators &amp; Members</div>
     <div class="mem-grid" id="memGrid27"></div>

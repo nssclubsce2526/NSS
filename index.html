@@ -510,32 +510,32 @@ body.admin .add-btn{display:inline-flex}
     <div class="exec-grid" id="execGrid27"></div>
 
     <div class="spotlight">
-      <div class="subhead">Leadership Spotlight</div>
+      <div class="subhead">Meet Our Team</div>
       <article class="spotlight-main reveal">
-        <img src="assets/members/alok.jpeg" alt="Alok Ranjan, Secretary of NSS Club">
+        <img src="assets/members/alok2.jpeg" alt="Alok Ranjan, Founder of NSS Club">
         <div>
-          <p class="spotlight-kicker">Secretary · 2026–27</p>
+          <p class="spotlight-kicker">Founder · 2026–27</p>
           <h3>Alok Ranjan</h3>
-          <div class="role">NSS Club Secretary</div>
-          <p class="spotlight-copy">Alok coordinates club communication, documentation and day-to-day planning for the NSS team. As Secretary, he helps volunteers stay connected and supports the smooth organisation of service activities and campus events.</p>
+          <div class="role">Founder</div>
+          <p class="spotlight-copy">Alok founded the club team and guides its communication, documentation and planning. He helps volunteers stay connected and supports the organisation of service activities and campus events.</p>
           <span class="spotlight-contact">Contact number: +91 87974 82851</span>
         </div>
       </article>
       <div class="spotlight-mini">
         <article class="spotlight-card reveal">
-          <h3>Coordination Team</h3>
-          <p>Malvika supports the coordination of volunteer teams and activities, helping the club keep communication and event planning organised.</p>
+          <h3>Technical Team</h3>
+          <p>Malvika supports the club's technical work, helping maintain digital resources and making information accessible to volunteers and students.</p>
           <div class="spotlight-person">
-            <img src="assets/members/malvika.jpeg" alt="Malvika Kumari, Head of Co-ordinators">
-            <div><b>Malvika Kumari</b><span>Head of Co-ordinators</span><br><span>Contact number: +91 90601 58577</span></div>
+            <img src="assets/members/malvika.jpeg" alt="Malvika Kumari, Technical Team">
+            <div><b>Malvika Kumari</b><span>Technical Team</span><br><span>Contact number: +91 90601 58577</span></div>
           </div>
         </article>
         <article class="spotlight-card reveal">
-          <h3>Vice-President</h3>
-          <p>Sujal supports club leadership, planning and volunteer coordination to help NSS activities run smoothly across the session.</p>
+          <h3>Marketing</h3>
+          <p>Sujal helps share NSS activities with students and the community, supporting outreach and clear communication for club events.</p>
           <div class="spotlight-person">
-            <img src="assets/members/sujal.jpeg" alt="Sujal Raj, Vice-President">
-            <div><b>Sujal Raj</b><span>Vice-President</span><br><span>Contact number: +91 92796 89987</span></div>
+            <img src="assets/members/sujal.jpeg" alt="Sujal Raj, Marketing">
+            <div><b>Sujal Raj</b><span>Marketing</span><br><span>Contact number: +91 92796 89987</span></div>
           </div>
         </article>
       </div>
@@ -871,6 +871,7 @@ attachMemberPhotos("memGrid27",members27);
 attachMemberPhotos("facultyGrid27",faculty27);
 document.getElementById("execGrid").innerHTML = renderExec(exec);
 document.getElementById("memGrid").innerHTML = renderMembers(members);
+document.getElementById("memGrid").after(document.querySelector(".spotlight"));
 
 /* ============ EVENT PHOTO ALBUMS ============
    To add an event: put its photos in assets/<folder>/ and add an entry below.
